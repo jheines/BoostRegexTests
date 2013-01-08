@@ -1,0 +1,13 @@
+updated by JMH on December 5, 2012 at 12:21 PM
+
+
+BoostUserGuide-1.52.pdf
+  http://www.boost.org/doc/libs/1_52_0/doc/html/xpressive/user_s_guide.html
+  
+String Splitting and Tokenization  
+  http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/boost_xpressive/user_s_guide/string_splitting_and_tokenization.html
+  
+CPP Reference on regex_token_iterator
+  http://en.cppreference.com/w/cpp/regex/regex_token_iterator
+  
+  

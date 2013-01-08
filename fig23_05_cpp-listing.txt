@@ -1,0 +1,80 @@
+﻿ 1  // Fig. 23.5: fig23_05.cpp
+ 2  // Using regex_replace algorithm.
+ 3  #include <iostream>
+ 4  #include <string>
+ 5  // #include <regex>         // removed by JMH
+    #include <boost/regex.hpp>  // added by JMH
+    
+ 6  using namespace std ;
+    using namespace boost ;     // added by JMH
+ 7  
+ 8  int main()
+ 9  {
+10     // create the test strings
+11     string testString1 = "This sentence ends in 5 stars *****";
+12     string testString2 = "1, 2, 3, 4, 5, 6, 7, 8";
+13     string output;
+14  
+15     cout << "Original string: " << testString1 << endl;
+16  
+17     // replace every * with a ^
+18     testString1 =
+19        regex_replace( testString1, regex( "\\*" ),  string( "^" ) );
+20     cout << "^ substituted for *: " << testString1 << endl;
+21  
+22     // replace "stars" with "carets"
+23     testString1 =
+24        regex_replace( testString1, regex( "stars" ), string( "carets" ) );
+25     cout << "\"carets\" substituted for \"stars\": "
+26        << testString1 << endl;
+27  
+28     // replace every word with "word"
+29     testString1 =
+30         regex_replace( testString1, regex( "\\w+" ), string( "word" ) );
+31     cout << "Every word replaced by \"word\": " << testString1 << endl;
+32  
+33     // replace the first three digits with "digit"
+34     cout << "\nOriginal string: " << testString2 << endl;
+35     string testString2Copy = testString2;
+36  
+37     for ( int i = 0; i < 3; ++i ) // loop three times
+38     {
+39        testString2Copy = regex_replace( testString2Copy, regex( "\\d" ),
+40           string( "digit" ), regex_constants::format_first_only );
+41     } // end for
+42  
+43     cout << "Replace first 3 digits by \"digit\": "
+44        << testString2Copy << endl;
+45  
+46     // split the string at the commas
+47     cout << "string split at commas [";
+48  
+49     regex splitter( ",\\s" ); // regex to split a string at commas
+50     sregex_token_iterator tokenIterator( testString2.begin(),
+51        testString2.end(), splitter, -1 ); // token iterator
+52     sregex_token_iterator end; // empty iterator
+53  
+54     while (  tokenIterator != end ) // tokenIterator isn't empty
+55     {
+56        output += "\"" + (*tokenIterator).str() + "\", ";
+57        ++tokenIterator; // advance the iterator
+58     } // end while
+59  
+60     // delete the ", " at the end of output string
+61     cout << output.substr( 0, output.length() - 2 ) << "]" << endl;
+62  } // end of function main
+63  
+64  /**************************************************************************
+65   * (C) Copyright 1992-2012 by Deitel & Associates, Inc. and               *
+66   * Pearson Education, Inc. All Rights Reserved.                           *
+67   *                                                                        *
+68   * DISCLAIMER: The authors and publisher of this book have used their     *
+69   * best efforts in preparing the book. These efforts include the          *
+70   * development, research, and testing of the theories and programs        *
+71   * to determine their effectiveness. The authors and publisher make       *
+72   * no warranty of any kind, expressed or implied, with regard to these    *
+73   * programs or to the documentation contained in these books. The authors *
+74   * and publisher shall not be liable in any event for incidental or       *
+75   * consequential damages in connection with, or arising out of, the       *
+76   * furnishing, performance, or use of these programs.                     *
+77   **************************************************************************/
